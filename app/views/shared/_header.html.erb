@@ -1,0 +1,12 @@
+<% if user_signed_in? %>
+    <div class='pull_right'>
+        <%= image_tag(current_user.avatar.variant(:tiny)) if current_user.avatar.attached? %>
+        <%= link_to(current_user.full_name, edit_profile_path) %>
+        <%= link_to 'Log out', destroy_user_session_path, method: "delete", data: { turbo_method: :delete } %>
+    </div>
+    <%= link_to 'Create Movie', new_movie_path %>
+    <%= link_to 'Search OMDB', omdb_search_movies_path %>
+    <%= link_to  'Show Movies', movies_path%>
+<% else %>
+    <%= link_to 'Sign in', new_user_session_path %>
+<% end %>

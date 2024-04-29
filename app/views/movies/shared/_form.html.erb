@@ -1,0 +1,33 @@
+<%= form_for movie do |form| %>
+    <div style = 'margin-bottom: 10px'>
+    <%= form.label :title , style: 'display: block' %>
+    <%= form.text_field :title %>
+    </div>
+
+    <div style = 'margin-bottom: 10px'>
+    <%= form.label :description , style: 'display: block' %>
+    <%= form.text_area :description %>
+    </div>
+
+    <div style = 'margin-bottom: 10px'>
+    <%= form.label :duration , style: 'display: block' %>
+    <%= form.text_field :duration %>
+    </div>
+
+    <div style = 'margin-bottom: 10px'>
+    <%= form.label :director , style: 'display: block' %>
+    <%= form.text_field :director %>
+    </div>
+
+    <div style = 'margin-bottom: 10px'>
+    <%= form.label :year_of_creation , style: 'display: block' %>
+    <%= form.number_field :year_of_creation %>
+    </div>
+
+    <div style = 'margin-bottom: 10px'>
+    <%= form.label :genres , style: 'display: block' %>
+    <%= form.select :genres, Movie::GENRES, multiple: true %>
+    </div>
+
+    <%= form.submit %>
+<% end %>

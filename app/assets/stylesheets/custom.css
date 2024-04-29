@@ -1,0 +1,13 @@
+.alert {
+
+}
+.notice {
+
+}
+.pull_right {
+    float: right;
+}
+.container-small {
+    width: 50%;
+    margin: 0 auto;
+}

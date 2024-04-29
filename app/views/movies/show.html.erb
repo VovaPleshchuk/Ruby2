@@ -1,0 +1,36 @@
+<h1>Show View</h1>
+<%= @movie.title%>
+<h2>Title: <%= @movie.title %></h2>
+<h3>Description: <%= @movie.description %></h3>
+<p>Year of creation: <%= @movie.year_of_creation %></p>
+<p>Genre: <%= @movie.genres %></p>
+<p>Director: <%= @movie.director %></p>
+<p><%= link_to 'Edit', edit_movie_path(@movie) %></p>
+
+<hr/>
+<article>
+    <h3>OMDB info</h3>
+    <p></p>
+    <%= @omdb_movie['Title']%>
+    <%= @omdb_movie['Year']%>
+    <%= @omdb_movie['Rated'] %>
+</article>
+
+<% @movie.comments.includes(:user).each do |comment| %>
+    <%= turbo_frame_tag(dom_id(comment)) do %>
+        <p><%= comment.body %> (by <%= comment.user.email%>)</p>
+        <% if policy(comment).edit? %>
+            <%= link_to 'edit', edit_movie_comment_path(comment, movie_id: comment.commentable.id), "data-turbo": false %>
+        <%end%>
+        <% if policy(comment).destroy? %>
+            <%= link_to('destroy', movie_comment_path(comment, movie_id: comment.commentable),
+                data: {'turbo-method'=> :delete})%>
+        <% end %>
+        <% comment.comments.includes(:user).each do |sub_comment| %>
+            <p><%= sub_comment.body %> (by <%= sub_comment.user.email%>)</p>
+            <br/>
+        <%end%>
+        <div class ="container-small"><%= render partial: 'comments/form', locals: { comment_to: comment } %></div>
+    <% end %>
+<% end %>
+<%= render partial: 'comments/form', locals: { comment_to: @movie } %>
